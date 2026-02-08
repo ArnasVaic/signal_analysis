@@ -13,6 +13,6 @@
   ]
 ) <finance>
 
-@finance[Pav.] pateiktos rekurentinės diagramose matome nehomogeniškai pasiskirsčiusius juodus taškus, signalas yra nestacionarus. Diagramose taip pat pastebime vertikalių ir horizontalių linijų, tai rodo, kad signale yra atkarpų per kurias jis kinta nežymiai palyginus su visa signalo imtimi. Diagrama su didesniu $D$ parametru pasireiškia glotnesniais raštais, kuris primena Gauso suliejimą (_angl. Gaussian blur_); šio parametro didinimas padeda atsikratyti triukšmo.
+@finance[Pav.] pateiktos rekurentinės diagramose matome nehomogeniškai pasiskirsčiusius juodus taškus, signalas yra nestacionarus. Diagramose taip pat pastebime vertikalių ir horizontalių linijų, tai rodo, kad signale yra atkarpų per kurias jis kinta nežymiai palyginus su visa signalo imtimi. Diagrama su didesniu $D$ parametru pasireiškia glotnesniais raštais, kurie primena Gauso suliejimą (_angl. Gaussian blur_); šio parametro didinimas padeda atsikratyti triukšmo.
 
 
