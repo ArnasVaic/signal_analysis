@@ -18,7 +18,6 @@
     linebreak()
     author 
     h(2cm)
-    text(size: 6pt)[parašas]
   }
   // All the author information is on the right
   grid(columns: (50%, 40%), gutter: 0pt, [], author_info)

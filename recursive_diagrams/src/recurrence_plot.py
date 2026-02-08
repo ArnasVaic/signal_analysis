@@ -66,7 +66,7 @@ def choose_r(values: list[float], p: float) -> float:
   :param p: Target percentage
   :type p: float
   """
-  k = ceil((1 - p) * len(values))
+  k = ceil(p * len(values))
   return sorted(values)[k - 1]
 
 def recurrence_plot(

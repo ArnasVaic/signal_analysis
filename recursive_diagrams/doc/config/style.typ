@@ -3,6 +3,8 @@
 
 #let vu_template_style_config(doc) = [
   
+  #set text(lang: "lt")
+
   // 2. Darbas rašomas viena skiltimi (vienu stulpeliu).
   #set page(columns: 1)
 
@@ -64,6 +66,8 @@
 
   // TODO: Priskirti konfigūracija kažkuriam tai reikalavimui
   #set ref(supplement: none)
+
+  #show figure: set figure.caption(position: top)
 
   #doc
 ]
