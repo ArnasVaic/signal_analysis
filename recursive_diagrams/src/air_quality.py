@@ -1,6 +1,6 @@
 # %%
 
-from ucimlrepo import fetch_ucirepo 
+from ucimlrepo import fetch_ucirepo
   
 # fetch dataset 
 air_quality = fetch_ucirepo(id=360) 
@@ -41,3 +41,27 @@ ax.xaxis.set_major_formatter(plt.matplotlib.dates.DateFormatter("%Y-%m-%d"))
 plt.savefig(f"../doc/assets/diagrams/air_quality/signal.png", dpi=300)
 
 plt.show()
+
+
+# %% Diagrams
+
+from recurrence_plot import recurrence_plot_custom, recurrence_plot
+from render_plot import render_recurrence_plot
+
+f: list[float] = list(X['CO(GT)'][::20].squeeze().tolist())
+f = f / np.max(f)
+
+path = '../doc/assets/diagrams/air_quality/'
+
+s, plot = recurrence_plot_custom(f, D=2, p=0.1, d=1, ord=2)
+img = render_recurrence_plot(s, plot)
+plt.imshow(img)
+
+img.save(path + 'a.png')
+s, plot = recurrence_plot_custom(f, D=2, p=0.25, d=1, ord=2)
+img = render_recurrence_plot(s, plot)
+img.save(path + 'b.png')
+
+s, plot = recurrence_plot_custom(f, D=2, p=0.5, d=1, ord=2)
+img = render_recurrence_plot(s, plot)
+img.save(path + 'c.png')

@@ -21,6 +21,7 @@
 #include "chapters/finance.typ"
 #include "chapters/lung_sound.typ"
 #include "chapters/heart_sound.typ"
+#include "chapters/air_quality.typ"
 #include "chapters/conclusions.typ"
 
 #bibliography("references.bib")
