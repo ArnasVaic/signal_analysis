@@ -19,7 +19,8 @@
 #include "chapters/signals.typ"
 #include "chapters/logistic.typ"
 #include "chapters/finance.typ"
-// #include "chapters/sound.typ"
+#include "chapters/lung_sound.typ"
+#include "chapters/heart_sound.typ"
 #include "chapters/conclusions.typ"
 
 #bibliography("references.bib")
