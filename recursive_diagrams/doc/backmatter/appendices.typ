@@ -50,6 +50,8 @@ def recurrence_field_values(
 caption: "Klasikinio rekurentinių diagramų algoritmo įgyvendinimas"
 ) <classic_rd>
 
+@classic_rd[Kodo fragmente] pateiktas klasikinio rekurentinių diagramų algoritmo įgyvendinimas `python` programavimo kalba nenaudojant jokių išorinių pagalbinių paketų išskyrus standartinės bibliotekos pagalbinę funkciją `Ceil` ir tipų aprašymo konstrukcijas `Callable` ir `Literal`. Didelė algoritmo dalis yra iškelta į metodą `recurrence_field_values`, kuris yra naudojamas įgyvendinant ir pritaikytą algoritmą, kuris palaiko parametrą $p$.
+
 #figure(
   caption: "Pritaikyto rekurentinių diagramų algoritmo įgyvendinimas", 
 [```py
@@ -69,3 +71,5 @@ def choose_r(values: list[float], p: float) -> float:
   return sorted(values)[k - 1]
 ```]
 ) <custom_rd>
+
+@custom_rd[Kodo fragmente] pateiktas pritaikyto algoritmo įgyvendinimas. Palaikomas parametras $p$, kuris nustato juodų taškų procentą diagramoje. Panaudota praeitame priede @classic_rd pateikta funkcija `recurrence_field_values`.
