@@ -25,3 +25,5 @@
     Rekurentinės diagramos sugeneruotos iš anglies monoksido konkcentracijos signalo. Parametrai $D=2, d=1$, naudojama Euklidinė metrika. Keičiamas parametras $p$, kuris žymi vartotojo pasirinktą juodų taškų procentą diagramoje (iš kairės į dešinę): $0.1, 0.25, 0.5$
   ]
 ) <air_quality_rd>
+
+@air_quality_rd[Pav.] matome, kad keičiant parametrą $p$ diagramose galima išvysti kokybinių skirtumų -- kairėje diagramoje juodi taškai beveik homogeniškai be tvarkos pasiskirstę po erdvę, kas rodo, kad signale yra atsitiktinio triukšmo, tačiau matyti ir juodų taškų telkinių, kurie ryškėja didinant parametrą $p$, kas rodo, kad signalo būsena laiko tarpais beveik arba visiškai nekinta.
