@@ -10,7 +10,10 @@ dependencies = [
     "numpy>=2.4.1",
     "pandas>=2.3.3",
     "pillow>=12.1.0",
+    "sun-angles>=1.7.0",
+    "tqdm>=4.67.3",
     "ucimlrepo>=0.0.7",
     "wfdb>=4.3.0",
+    "xlrd>=2.0.2",
     "yfinance>=1.1.0",
 ]
