@@ -26,7 +26,7 @@ import matplotlib.ticker as ticker
 sig = np.array(df["Close"].squeeze().tolist())
 
 # Set bigger fonts for paper
-plt.rcParams.update({'font.size': 16})
+plt.rcParams.update({'font.size': 18})
 
 # Create figure (slightly rectangular, adjust if you want square)
 fig, ax = plt.subplots(figsize=(6, 5))
@@ -39,7 +39,7 @@ ax.plot(df.index, sig, color='black', linewidth=1.5)
 
 # Set x-axis major ticks: every 50 data points (adjust as needed)
 # ax.set_xticks(df.index[::3 * 11 * 5 - 1])
-ax.get_xaxis().set_visible(False)
+ax.tick_params(axis="x", labelbottom=False)
 
 # Set y-axis major ticks based on min/max rounded nicely
 ymin, ymax = sig.min(), sig.max()
@@ -60,7 +60,7 @@ ax.spines['bottom'].set_visible(True)
 ax.spines['left'].set_visible(True)
 
 # Labels
-ax.set_xlabel("Data")
+ax.set_xlabel("2025 m. 01-01 iki 12-31")
 ax.set_ylabel("Kaina ($)")
 
 # Tight layout

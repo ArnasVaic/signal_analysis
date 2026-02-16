@@ -35,24 +35,27 @@
 
 #let vu_template_title_page(
   report_type, 
-  title, 
+  doc_title, 
   author, 
   supervisor, 
   in-lithuanian: true
 ) = {
   set page(header: none, footer: none)
+
+  set document(
+    title: doc_title
+  )
+
   align(center, {
     image("../assets/logos/vu_logo.svg", width: 2cm)
     origin_text(in-lithuanian)
     v(4cm)
     report_type
     v(0.5cm)
-    text(size: 18pt, weight: "bold")[#title]
+    title()
   })
   v(4cm)
   authors_block(author, in-lithuanian)
-  // v(0.5cm) 
-  // supervisor_block(supervisor, in-lithuanian)
   v(1fr)
   align(center)[
     Vilnius \

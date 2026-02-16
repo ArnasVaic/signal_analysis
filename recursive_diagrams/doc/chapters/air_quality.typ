@@ -26,4 +26,4 @@
   ]
 ) <air_quality_rd>
 
-@air_quality_rd[Pav.] matome, kad keičiant parametrą $p$ diagramose galima išvysti kokybinių skirtumų -- kairėje diagramoje juodi taškai beveik homogeniškai be tvarkos pasiskirstę po erdvę, kas rodo, kad signale yra atsitiktinio triukšmo, tačiau matyti ir juodų taškų telkinių, kurie ryškėja didinant parametrą $p$, kas rodo, kad signalo būsena laiko tarpais beveik arba visiškai nekinta.
+@air_quality_rd matome, kad keičiant parametrą $p$ diagramose galima išvysti kokybinių skirtumų -- kairėje diagramoje juodi taškai beveik homogeniškai be tvarkos pasiskirstę po erdvę, kas rodo, kad signale yra atsitiktinio triukšmo, tačiau matyti ir juodų taškų telkinių, kurie ryškėja didinant parametrą $p$, kas rodo, kad signalo būsena laiko tarpais beveik arba visiškai nekinta.
