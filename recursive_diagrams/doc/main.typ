@@ -1,16 +1,16 @@
-#import "config/style.typ": vu_template_style_config
-#import "config/titlepage.typ": vu_template_title_page
+#import "config/style.typ": style_config
+#import "config/titlepage.typ": title_page
 
-#show: vu_template_style_config
+#show: style_config("lt")
 
-#vu_template_title_page(
+#title_page(
   "Signalų analizės pirmas projektinis darbas",
   [ 
     Rekurentinės diagramos, algortimo parametrų analizė
   ],
   "Arnas Vaicekauskas",
   "",
-  in-lithuanian: true,
+  "lt",
 )
 
 #outline(depth: 3, title: "Turinys")
@@ -20,7 +20,8 @@
 #include "chapters/logistic.typ"
 #include "chapters/finance.typ"
 #include "chapters/lung_sound.typ"
-#include "chapters/heart_sound.typ"
+// #include "chapters/heart_sound.typ"
+#include "chapters/energy.typ"
 #include "chapters/air_quality.typ"
 #pagebreak(weak: true)
 #include "chapters/conclusions.typ"

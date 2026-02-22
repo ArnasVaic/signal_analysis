@@ -24,7 +24,7 @@ img.save("../doc/assets/diagrams/logistic/b.png")
 import matplotlib.pyplot as plt
 import matplotlib.ticker as ticker
 
-plt.rcParams.update({'font.size': 16})  # adjust number as needed (12–18 usually works for papers)
+plt.rcParams.update({'font.size': 18})  # adjust number as needed (12–18 usually works for papers)
 
 # Example plot setup
 fig, ax = plt.subplots(figsize=(6, 6))

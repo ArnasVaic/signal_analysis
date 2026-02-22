@@ -17,9 +17,15 @@
   grid(
     columns: (120pt, 120pt, 120pt),
     gutter: 24pt,
-    image("../assets/diagrams/air_quality/a.png"),
-    image("../assets/diagrams/air_quality/b.png"),
-    image("../assets/diagrams/air_quality/c.png")
+    rect(stroke: 2pt, inset: 0pt, )[
+      #image("../assets/diagrams/air_quality/a.png")
+    ],
+    rect(stroke: 2pt, inset: 0pt, )[
+      #image("../assets/diagrams/air_quality/b.png")
+    ],
+    rect(stroke: 2pt, inset: 0pt, )[
+      #image("../assets/diagrams/air_quality/c.png")
+    ]
   ),
   caption: [ 
     Rekurentinės diagramos sugeneruotos iš anglies monoksido konkcentracijos signalo. Parametrai $D=2, d=1$, naudojama Euklidinė metrika. Keičiamas parametras $p$, kuris žymi vartotojo pasirinktą juodų taškų procentą diagramoje (iš kairės į dešinę): $0.1, 0.25, 0.5$

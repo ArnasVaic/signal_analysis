@@ -1,146 +1,26 @@
-// This template was built to fulfill the formal stylistic requirements of Vilnius University, department of computational and data modelling. Structural requirements are part of the document defined in thesis.typ.
-// The requirements can be found here: https://mif.vu.lt/lt3/dokumentai/dokumentai/KOMP/Reglamentuojantys/Reikalavimai_Magistriniams_Darbams.pdf (last updated 2026-01-16)
+#import "bibliography.typ": bibliography_config
+#import "headings.typ": heading_config
+#import "figures.typ": figure_config
+#import "page.typ": page_config
+#import "text.typ": text_config
+#import "refs.typ": ref_config
+#import "par.typ": par_config
 
-#let vu_template_style_config(doc) = [
+#let style_config(lang) = body => {
   
-  // Title size \Large according to LaTeX template 
-  // which is 17.28pt when default font size is 12pt
-  // source: https://tug.org/texinfohtml/latex2e.html#Font-sizes
-  #show title: set text(size: 17.28pt, weight: "bold")
-
-  #set text(lang: "lt")
-
-  // 2. Darbas rašomas viena skiltimi (vienu stulpeliu).
-  #set page(columns: 1)
-
-  // 3.  Paraštės: viršuje – 20 mm, apačioje – 20 mm, kairėje – 30 mm, dešinėje – 15 mm
-  #set page(
-    margin: (top: 20mm, bottom: 20mm, left: 30mm, right: 15mm)
+  assert(
+    lang == "lt" or lang == "en", 
+    message: "Language has to be either 'lt' or 'en'" 
   )
 
-  // 4. Šrifto nustatymai: Times arba Times New Roman arba Palemonas arba Libertine, 12 pt, šrifto stilius normalus (išskyrus darbo pavadinimą ir skyrių bei poskyrių pavadinimus, kur galima naudoti pajuodintą šriftą; darbo pavadinimas ir pagrindinių skyrių pavadinimai gali būti renkami didesnio dydžio raidėmis). Iliustracijų ir lentelių pavadinimuose (trumpuose aprašymuose prie iliustracijos arba lentelės) galima naudoti mažesnio dydžio raides.
-  #set text(font: "Libertinus Serif", size: 12pt);
-  #show heading.where(level: 1): set text(size: 14pt)
-  #show heading: set text(weight: "bold")
-
-  // 5. Intervalas tarp teksto eilučių: 1.1 (10% didesnis už standartinį viengubą intervalą).
-  // Typst and LaTeX definitions of leading differ: 
-  // Source: https://en.wikipedia.org/wiki/Leading
-  // Default leading amount is 0.65em
-  #show heading: set block(below: 1.1 * 1em)
-  #set par(leading: 1.1 * 0.65em)
-  // Don't apply the same line spacing for code snippets
-  #show raw.where(block: true): set par(leading: 0.65em)
-
-  // 6. Puslapiai numeruojami viršuje arba apačioje, dešinėje pusėje
-  #set page(numbering: "1", number-align: right + bottom)
-
-  // 7. Pagrindinės darbą sudarančios dalys (darbe eina viena po kitos būtent tokia tvarka): 
-  // - susitikimų su darbo vadovu deklaracija (rekomenduojama pateikti), 
-  // - turinys, 
-  // - pratarmė (jeigu yra), 
-  // - sutartinis terminų sąrašas (jeigu yra), 
-  // - anotacija lietuvių kalba, 
-  // - anotacija anglų kalba (summary), 
-  // - įvadas, 
-  // - kiekvienas skyrius (1-asis, 2-asis ir t. t.), 
-  // - išvados ir rekomendacijos, 
-  // - ateities tyrimų planas arba gairės, 
-  // - literatūros sąrašas, 
-  // - darbo priedai (jeigu yra) pradedamos naujame puslapyje. 
-  // Einamąjį skyrių sudarantys poskyriai ir skirsniai (1.1, 1.2, 1.2.1, 1.3 ir t. t.) neturi būti priverstinai pradedami naujame puslapyje.
-  // Structure is configured in thesis.typ
+  show: bibliography_config(lang)
+  show: figure_config(lang)
+  show: text_config(lang)
+  show: ref_config(lang)
+   
+  show: heading_config
+  show: page_config
+  show: par_config
   
-  // 8. Susitikimų su darbo vadovu deklaracija (rekomenduojama pateikti) viešinant darbą neturi būti matoma, todėl elektroninėje darbo versijoje šią deklaraciją pateikite atskiroje byloje. Ji neminima darbo turinyje, neturi puslapio numerio ir neįtakoja darbo puslapių numeracijos.
-
-  // 9. Literatūros sąrašas numeruojamas skaičiais, abėcėlės tvarka (pagal pirmojo autoriaus pavardę, jei ji sutampa, atsižvelgiama į kitų autorių pavardes, pavadinimą). Literatūros šaltiniais gali būti: knygos, straipsniai, studentų bakalauriniai ir magistriniai darbai, internete patalpinta medžiaga. Literatūros sąraše privalo būti bent penki šaltiniai iš knygų ir straipsnių kategorijos (pagal galimybes stenkitės remtis naujausiais šaltiniais). Visos literatūros sąrašo pozicijos privalo būti cituojamos darbo tekste. Literatūros sąrašas privalo būti apiformintas ir cituojamas taip, kaip pateiktame pavyzdyje [2] (žr. „Rašto darbai”).
-  #set bibliography(
-    // style: "plain.csl",
-    full: false,
-    title: "Literatūros šaltiniai"
-  )
-
-  // 10. Iliustracijos, lentelės ir pseudokodas privalo tenkinti reikalavimus, nurodytus [2] (žr. „Rašto darbai”
-  // TODO: the link for this reference in the university page doesn't work so I no idea what are the requirements. Will need to update once I get feedback from university about this.
-  
-  // 11. Titulinis puslapis apipavidalinamas, kaip parodyta pavyzdyje [2] (žr. „Rašto darbai”)
-  // Title page is configured in config/titlepage.typ and is made to look like the official LaTeX template: https://www.overleaf.com/project/60c9ac7c5cf5eefc6065666a
-
-  // 12. Turinyje pateikiami darbą sudarančių dalių (pradedant anotacija lietuvių kalba, įskaitant skyrius, poskyrius ir skirsnius) pavadinimai su nuorodomis į puslapius.
-  // Default outline options are OK
-
-  // 13. Skyriaus, poskyrio ir skirsnio numeriai vienas nuo kito skiriami taškais (1.1, 1.2, 1.2.1, 1.3 ir t. t.).
-  // Šrifto dydis sukonfigūruotas pagal LaTeX įprastus (default) nustatymus
-  // https://tug.org/texinfohtml/latex2e.html#Font-sizes
-  #set heading(numbering: "1.")
-
-  // Large
-  #show heading.where(level: 1): set text(size: 17.28pt)
-
-  // large
-  #show heading.where(level: 2): set text(size: 14.4pt)
-
-  // 14. Nenumeruojami: turinys, pratarmė, sutartinis terminų sąrašas (jeigu yra), anotacija lietuvių kalba, anotacija anglų kalba (summary), įvadas, išvados ir rekomendacijos, ateities tyrimų planas arba gairės ir literatūros sąrašas. Priedai numeruojami atskirai didžiosiomis lotyniškomis raidėmis (A, B, C ir t. t.).
-  // Non-numbered headings are configured explicitly throughout the document
-
-  // TODO: Priskirti konfigūracija kažkuriam tai reikalavimui
-  #show ref.where(form: "normal"): set ref(supplement: it => {
-    if it.func() == figure {
-      "pav."   // your custom supplement
-    } else {
-      it.supplement  // leave others alone
-    }
-  })
-
-  // Configure custom references for:
-  // - Figures: x pav.
-  #show ref: it => {
-    let el = it.element
-
-    if el == none or el.func() != figure { return it }
-    let capt = it.element.caption
-
-    link(
-      el.location(), 
-      numbering(
-        el.numbering, ..counter(figure).at(el.location())
-      ) + " " + el.supplement,
-    )
-  }
-
-  // Configure custom figure captions:
-  // x pav. <text>
-  #set figure(supplement: "pav.")
-  #show figure.caption: it => {
-    it.counter.display(it.numbering)
-    " "
-    it.supplement
-    it.body
-  }
-
-  // Figure caption alignment
-  // TODO: probably also needed for tables
-  #show figure.caption: set align(left)
-  #show figure.caption: it => {
-    set par(justify: true)
-    it
-  }
-
-  // Custom headings:
-  // Numbering + h space + name
-  #show heading: it => block(
-    if it.numbering != none {
-      counter(heading).display(it.numbering)
-      h(1em)       // space *only if numbered*
-    }
-    + it.body       // title text always
-  )
-
-  // First line is idented
-  #set par(
-    first-line-indent: (amount: 1.5em, all: true)
-  )
-
-
-  #doc
-]
+  body
+}

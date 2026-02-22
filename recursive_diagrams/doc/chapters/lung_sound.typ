@@ -15,9 +15,15 @@
   grid(
     columns: (120pt, 120pt, 120pt),
     gutter: 24pt,
-    image("../assets/diagrams/lung_sound/a.png"),
-    image("../assets/diagrams/lung_sound/b.png"),
-    image("../assets/diagrams/lung_sound/c.png")
+    rect(stroke: 2pt, inset: 0pt, )[
+      #image("../assets/diagrams/lung_sound/a.png") 
+    ],
+    rect(stroke: 2pt, inset: 0pt, )[
+      #image("../assets/diagrams/lung_sound/b.png")
+    ],
+    rect(stroke: 2pt, inset: 0pt, )[
+      #image("../assets/diagrams/lung_sound/c.png")
+    ]
   ),
   caption: [ Plaučių garso įrašo rekurentinės diagramos su parametrais $D=2,r=0.1, d=1$ ir skirtingomis normomis (iš kairės į dešinę): Manheteno, Euklidinė ir maksimumo. ]
 ) <lung_sound_rd>
