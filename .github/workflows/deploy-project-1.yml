@@ -44,7 +44,7 @@ jobs:
           typst compile recursive_diagrams/doc/main.typ site/project_1.pdf
 
       - name: Upload Pages artifact
-        uses: actions/upload-pages-artifact@v3
+        uses: actions/upload-pages-artifact@v4
         with:
           name: project-1-pdf
           path: site
