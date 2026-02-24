@@ -1,5 +1,8 @@
 # %%
 
+from contextlib import contextmanager
+import time
+
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
@@ -12,8 +15,28 @@ df = pd.read_excel('../data/litgrid/litgrid-2025.xls')
 
 signal = df['fact'].squeeze().tolist()
 
-# %%
+# %% Measure speedup
 
+@contextmanager
+def timed(msg="Elapsed"):
+  start = time.perf_counter()
+  yield lambda: time.perf_counter() - start
+  end = time.perf_counter()
+  print(f"{msg}: {end - start:.6f} seconds")
+
+f = signal[::8]
+
+with timed("norm=inf"):
+    s, plot = recurrence_plot_custom(f, D=2, p=0.3, d=1, ord='inf')
+
+
+with timed("norm=manh"):
+    s, plot = recurrence_plot_custom(f, D=2, p=0.3, d=1, ord=1)
+    
+with timed("norm=euclid"):
+    s, plot = recurrence_plot_custom(f, D=2, p=0.3, d=1, ord=2)
+
+# %%
 # Generate recurrence diagrams + combine into single image
 
 year = 2025

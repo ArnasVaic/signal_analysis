@@ -1,0 +1,61 @@
+name: Release Project 1 PDF to GitHub Pages
+
+on:
+  workflow_dispatch:
+  push:
+    tags:
+      - "v*"
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          lfs: true
+          fetch-depth: 0
+
+      - name: Setup Typst
+        uses: typst-community/setup-typst@v4
+
+      # Optional but recommended for larger projects
+      # - name: Cache Typst packages
+      #   uses: actions/cache@v4
+      #   with:
+      #     path: ~/.cache/typst
+      #     key: typst-${{ runner.os }}
+
+      - name: Build PDF
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p site
+          typst compile recursive_diagrams/doc/main.typ site/project_1.pdf
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          name: project-1-pdf
+          path: site
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Configure GitHub Pages
+        uses: actions/configure-pages@v5
+
+      - name: Deploy to GitHub Pages
+        uses: actions/deploy-pages@v4
