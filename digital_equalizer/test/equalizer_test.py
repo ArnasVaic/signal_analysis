@@ -129,3 +129,56 @@ plt.grid(True)
 
 plt.tight_layout()
 plt.savefig('doc/assets/diagrams/eq-applied.png', dpi=300, bbox_inches="tight")
+
+# %%
+
+import soundfile as sf
+from src.equalizer import eq
+
+
+def gain(f):
+    center = 130.81
+    width = 30
+    return 1 + 10 * np.exp(-((f - center)**2) / (2 * width**2))
+
+f = np.arange(0, 400, 1)
+
+plt.figure(figsize=(6, 4))
+plt.plot(f, gain(f), label="Stiprinimo kreivė")
+
+# C note marker
+plt.axvline(x=130.81, color='r', linestyle='--', label='C (130.81 Hz)')
+
+plt.xlabel("Dažnis (Hz)")
+plt.ylabel("Stiprinimo koeficientas")
+plt.title("Ekvalaizerio stiprinimo funkcija")
+
+plt.legend()
+plt.grid(True)
+
+plt.savefig("doc/assets/diagrams/eq-gain-wide.png", dpi=300, bbox_inches="tight")
+
+# %%
+
+new_y = eq(y_padded, sr, gain)
+
+# time axis in seconds
+t = np.arange(len(y_padded)) / sr
+
+# mask: only first 8 seconds
+mask = t <= 8
+
+plt.figure(figsize=(6, 4))
+
+plt.plot(t[mask], y_padded[mask], label="Pradinis signalas", alpha=0.7)
+plt.plot(t[mask], np.real(new_y)[mask], label="Po ekvalaizerio", alpha=0.7)
+
+plt.xlabel("Laikas (s)")
+plt.ylabel("Amplitudė")
+plt.title("Signalo prieš ir po ekvalaizerio (0–8 s)")
+
+plt.legend()
+plt.grid(True)
+
+plt.tight_layout()
+plt.savefig('doc/assets/diagrams/eq-applied-wide.png', dpi=300, bbox_inches="tight")

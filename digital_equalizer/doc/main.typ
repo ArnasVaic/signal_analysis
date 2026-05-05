@@ -40,6 +40,8 @@ Mažą skaičių taškų $N$ renkamės tam, kad palyginimo rezultatus būtų pap
 
 Kaip matome @values_cmp menamos reikšmės sutampa idealiai, tuo tarpu realios reikšmes turi nedidelių skirtumų, tai gali lemti float tipo tikslumas python aplinkoje $epsilon approx 2.22 times 10^(-16)$.
 
+#pagebreak()
+
 = Algoritmų greitaveikos palyginimas
 
 Standartinis diskrečios furje transformacijos algoritmas (_angl. discrete fourier transform, DFT_) yra neefektyvus praktiniams taikymams, nes jo veikimo sudėtingumas yra $O(n^2)$, o garso signaluose esančių diskrečių taškų kiekis dažniausiai siekia kelias dešimtis tūkstančių per sekundę. Dėl šios priežasties praktikoje dažniausiai naudojame greitąją Furje transformaciją (_angl. fast fourier transform, FFT_). Šiame turime naudosime Cooley-Tukey algoritmo implementaciją kurios sudėtingumas yra $O(n log n)$. Palyginsime šių algoritmų greitaveiką su įvairių ilgių signalais.
@@ -62,7 +64,7 @@ Standartinis diskrečios furje transformacijos algoritmas (_angl. discrete fouri
   caption: [Kairėje -- FFT algoritmas pritaikytas audio signalui kuriame iš eilės gitara sugrojamos natos C, E, G. Dešinėje -- šio signalo spektrograma.]
 ) <ceg-sig-and-spec>
 
-Norint pademonstruoti skaitmeninio ekvalaizerio veikimą naudosime @ceg-sig-and-spec pavaizduotą audio signalą. Kadangi trijų natų dažniai yra skirtingi ir nėra vienas kito kartotiniai, taikantis į specifinį dažnių intervalą aplink vieną iš natų turėtume gauti garso signalą, kuriame būtų pagarsinta tik pasirinkta nata.
+Norint pademonstruoti skaitmeninio ekvalaizerio veikimą naudosime @ceg-sig-and-spec pavaizduotą audio signalą. Kadangi trijų natų dažniai yra skirtingi ir nėra vienas kito kartotiniai, taikantis į specifinį dažnių intervalą aplink vieną iš natų turėtume gauti garso signalą, kuriame būtų pagarsinta tik pasirinkta nata. Galima pastebėti, kad spektrogramoje yra ir kitų dažnių, kurie sutampa su grojamų natų oktavomis, taip yra todėl, kad instrumentų skleidžiamos bangos nėra idealios ir turi harmoningų dažnių.
 
 #figure(
   grid(
@@ -70,7 +72,7 @@ Norint pademonstruoti skaitmeninio ekvalaizerio veikimą naudosime @ceg-sig-and-
     image("assets/diagrams/eq-gain.png"),
     image("assets/diagrams/eq-applied.png")
   ),
-  caption: [Kairėje -- garso stiprinimo (_angl. gain_) funkcija, taikomasi į dažnių intervalą išsidėsčiusį aplink 130.81 Hz, arba kitaip, C natą per oktavą žemiau nei vidurinė C nata. Dešinėje -- audio signalas iš @ceg-sig-and-spec ir naujas signalas, kuriam su skaitmeniniu ekvalaizeriu buvo pritaikyta dešinėje matoma garso stiprinimo funkcija. ]
+  caption: [Kairėje -- garso stiprinimo (_angl. gain_) funkcija, taikomasi į dažnių intervalą išsidėsčiusį aplink 130.81 Hz, arba kitaip, C natą per oktavą žemiau nei vidurinė C nata. Dešinėje -- audio signalas iš @ceg-sig-and-spec ir naujas signalas, kuriam su skaitmeniniu ekvalaizeriu buvo pritaikyta kairėje matoma garso stiprinimo funkcija. ]
 ) <eq-applied>
 
 Kaip matome @eq-applied signalui pritaikius garso stiprinimo funkcija su skaitmeniniu ekvalaizeriu naujame garso signale matome stiprų audio signalo formos padidėjimą (ir pastebimą pagarsėjimą audio įraše). Galima pastebėti, kad audio įrašę, nežymiai pagarsėjusi yra ir E nata, tačiau taip yra todėl, kad garso stiprinimo funkcijos varpo forma nežymiai apima yra E natos dažnį -- 164.81 Hz. Norint išvengti tokio efekto reikėtų susiaurinti garso stiprinimo funkciją, kuri šiuo metu apsirašo taip:
@@ -79,7 +81,18 @@ $
   "gain"(f) = 1 + 10exp(-(f - f_"C3")^2 / (2w^2))
 $
 
-kur $f_"C3"$ yra C3 natos dažnis (130.81 Hz), o $w$ yra funkcijos plotį reguliuojantis parametras.
+kur $f_"C3"$ yra C3 natos dažnis (130.81 Hz), o $w=15$ yra funkcijos plotį reguliuojantis parametras. Jei padidintume parametro $w$ reikšmę, stiprinimo funkcija apimtų ir kitų natų dažnius, todėl jie taip pat būtų pagarsinti kaip matoma @eq-applied-wider
+
+#figure(
+  grid(
+    columns: 2,
+    image("assets/diagrams/eq-gain-wide.png"),
+    image("assets/diagrams/eq-applied-wide.png")
+  ),
+  caption: [Kairėje -- garso stiprinimo (_angl. gain_) funkcija, taikomasi į dažnių intervalą išsidėsčiusį aplink 130.81 Hz, arba kitaip, C natą per oktavą žemiau nei vidurinė C nata. Dešinėje -- audio signalas iš @ceg-sig-and-spec ir naujas signalas, kuriam su skaitmeniniu ekvalaizeriu buvo pritaikyta kairėje matoma garso stiprinimo funkcija. ]
+) <eq-applied-wider>
+
+
 
 = Išvados
 

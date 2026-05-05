@@ -1,11 +1,6 @@
 import cmath
 
 def cooley_tukey_fft(xs):
-  """Compute the FFT of a sequence using recursive radix-2 Cooley-Tukey.
-
-  This implementation is intentionally simple and readable.
-  Input length must be a power of 2.
-  """
   n = len(xs)
 
   if n == 0:
@@ -30,12 +25,6 @@ def cooley_tukey_fft(xs):
   return spectrum
 
 def cooley_tukey_ifft(xs):
-  """Compute the inverse FFT using recursive radix-2 Cooley-Tukey.
-
-  This implementation mirrors ``cooley_tukey_fft`` and returns the
-  time-domain sequence scaled by 1 / N.
-  Input length must be a power of 2.
-  """
   n = len(xs)
 
   if n == 0:
