@@ -3,8 +3,11 @@
 import librosa
 import matplotlib.pyplot as plt
 import numpy as np
-
+import soundfile as sf
 from src.equalizer import eq
+from src.fft import cooley_tukey_fft
+
+# %%
 
 y, sr = librosa.load("data/c-e-g.m4a", sr=None)
 
@@ -182,3 +185,62 @@ plt.grid(True)
 
 plt.tight_layout()
 plt.savefig('doc/assets/diagrams/eq-applied-wide.png', dpi=300, bbox_inches="tight")
+
+# %% Augment melody
+
+filename = librosa.example('trumpet')
+y_noise, sr_noise = librosa.load(filename)
+y, sr = librosa.load("data/melody.wav", sr=None)
+y_noise_resampled = librosa.resample(y_noise, orig_sr=sr_noise, target_sr=sr)
+
+common_len = min(len(y), len(y_noise_resampled))
+
+y_noise_resampled = y_noise_resampled[:common_len]
+y = y[:common_len]
+
+y_noisy = y_noise_resampled + y
+
+plt.plot(y_noisy)
+sf.write('data/melody_noise.wav', np.real(y_noisy), sr)
+
+# %%
+
+y_padded = extend_sig(y)
+N = len(y_padded)
+freqs = np.fft.fftfreq(N, d=1/sr)
+YS = cooley_tukey_fft(y_padded)
+mask = (freqs >= 0) & (freqs <= 500)
+amplitude = np.abs(YS) / N
+amplitude[1:N//2] *= 2
+
+plt.figure(figsize=(6, 4))
+
+plt.plot(freqs[mask], amplitude[mask])
+
+plt.xlabel("Dažnis (Hz)")
+plt.ylabel("Amplitudė")
+
+plt.legend()
+plt.grid(True)
+
+# %%
+
+def gain(f):
+    return 0.0 if f > 300 else 1.0
+
+# f = np.arange(0, 400, 1)
+
+# plt.figure(figsize=(6, 4))
+# plt.plot(f, gain(f), label="Stiprinimo kreivė")
+
+# %%
+
+y_recovered = eq(y_padded, sr, gain)
+
+
+plt.plot(y)
+plt.plot(y_recovered)
+
+
+
+sf.write('data/melody_recovered.wav', np.real(y_recovered), sr)

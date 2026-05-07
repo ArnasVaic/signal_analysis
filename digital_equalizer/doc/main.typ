@@ -92,6 +92,8 @@ kur $f_"C3"$ yra C3 natos dažnis (130.81 Hz), o $w=15$ yra funkcijos plotį reg
   caption: [Kairėje -- garso stiprinimo (_angl. gain_) funkcija, taikomasi į dažnių intervalą išsidėsčiusį aplink 130.81 Hz, arba kitaip, C natą per oktavą žemiau nei vidurinė C nata. Dešinėje -- audio signalas iš @ceg-sig-and-spec ir naujas signalas, kuriam su skaitmeniniu ekvalaizeriu buvo pritaikyta kairėje matoma garso stiprinimo funkcija. ]
 ) <eq-applied-wider>
 
+= Garso pašalinimas su skaitmeniniu ekvalaizeriu
+
 
 
 = Išvados
