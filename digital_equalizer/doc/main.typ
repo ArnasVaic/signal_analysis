@@ -21,6 +21,7 @@
 #set enum(numbering: "1.")
 
 + Gitaros garsas
++ Muzikiniai įrašai
 + Sintetiniai signalai
 
 = Algoritmo korektiškumas
@@ -171,7 +172,7 @@ Kaip matome @compare_signals, atkura melodijos signalas yra panašus į orginali
 
 == Seno telefono efektas
 
-Naudojant skaitmeninį ekvalaizerį galime suteikti audio įrašui įvairių efektų, vienas iš klasikinių pavyzdžių yra seno telefono efektas -- senieji telefonai ne taip gerai pernešdavo labai žemus bei labai aukštus dažnius, dėl šios priežasties ir atsiranda gerai žinomas seno telefono garso efektas. Kaip naudojantis skaitmenino ekvalaizerio pagalba pašalinti tam tikrus dažnius jau matėme praeitame pavizdyje, šiuo atvjeu darome tą patį, tik su kitokiu tikslu.
+Naudojant skaitmeninį ekvalaizerį galime suteikti audio įrašui įvairių efektų, vienas iš klasikinių pavyzdžių yra seno telefono efektas -- senieji telefonai ne taip gerai pernešdavo labai žemus bei labai aukštus dažnius, dėl šios priežasties ir atsiranda gerai žinomas seno telefono garso efektas. Kaip naudojantis skaitmenino ekvalaizerio pagalba pašalinti tam tikrus dažnius jau matėme praeitame pavizdyje, šiuo atvjeu darome tą patį, tik su kitokiu tikslu. Pritaikisime šį efektą muzikinio įrašo Rex Orange County -- Sunflower iškarpai.
 
 #figure(
   grid(
@@ -185,6 +186,36 @@ Naudojant skaitmeninį ekvalaizerį galime suteikti audio įrašui įvairių efe
 
 Kaip matome @telephone, pritaikius efektą, signalo kreivė šiek tiek susitraukia, nes naikindami dažnius panaikiname dalį informacijos ir sumažiname signalo energiją. Nors ir vizualiai nesimato, gautas įrašo kokybė yra stipriai sumažėjusi ir atrodo lyg audio signalas buvo gautas įrašant orginalų įrašą pro seną telefoną.
 
+== _Bass boost_ efektas
+
+Dar vienas dažnas skaitmeninio ekvalaizerio taikymas yra žemų dažnių stiprinimas (_angl. bass boost_). Toks efektas plačiai naudojamas muzikos grotuvuose, atumobilių garso sistemose bei įvairiose garso apdorojimo programose. Stiprinant žemus dažnius garsas tampa „gilesnis“, labiau juntamas žemų tonų ritmas bei smūgiai.
+
+Šiame pavyzdyje nagrinėsime elektroninės muzikos (_angl. drum and bass_) garso įrašo fragmentą, kuriame žemų dažnių komponentai yra itin svarbūs. Kadangi būtent žemųjų dažnių srityje randasi mušamųjų bei bosinių instrumentų garsas, sustiprinę šį dažnių intervalą galime aiškiai išgirsti skirtumą tarp orginalaus ir apdoroto signalo.
+
+Naudosime tokią garso stiprinimo funkciją:
+
+$
+  "gain"(f) = 1 + A exp(-(f - f_c)^2 / (2w^2))
+$
+
+kur $f_c = 120"Hz"$ -- stiprinimo centro dažnis, $w = 120$ -- stiprinimo funkcijos plotis, o $A = 3$ -- stiprinimo intensyvumas. Ši funkcija stiprina dažnius esančius aplink 120 Hz ir palaipsniui silpnėja tolstant nuo šio dažnio.
+
+#figure(
+  grid(
+    columns: 2,
+    image("assets/diagrams/bass-boost-gain.png"),
+    image("assets/diagrams/bass-boost-comparison.png")
+  ),
+  caption: [
+    Kairėje -- žemų dažnių stiprinimo funkcija, kurios maksimumas yra ties 120 Hz. 
+    Dešinėje -- audio signalas prieš ir po bass boost efekto pritaikymo.
+  ]
+) <bass_boost>
+
+Kaip matome @bass_boost, pritaikius žemų dažnių stiprinimą, signalo amplitudė padidėja, nes žemųjų dažnių komponentai įgauna didesnę energiją. Klausant apdoroto įrašo per garso sistemą, kuri gali perteikti žemus dažnius, galima aiškiai girdėti sustiprintą mušamųjų bei boso garsą.
+
+
+
 = Išvados
 
 Šio darbo metu buvo įgyvendintas ir išanalizuotas greitosios Furje transformacijos (FFT) algoritmas, paremtas Cooley-Tukey metodu. Palyginus su SciPy realizacija nustatyta, kad rezultatai sutampa su labai maža paklaida, kurią galima paaiškinti slankiojo kablelio skaičiavimų tikslumo ribotumais.
@@ -192,7 +223,7 @@ Kaip matome @telephone, pritaikius efektą, signalo kreivė šiek tiek susitrauk
 Greitaveikos analizė parodė, kad FFT algoritmas yra ženkliai efektyvesnis už klasikinę diskrečią Furje transformaciją (DFT), ypač didėjant signalo ilgiui. Tai patvirtina teorinį sudėtingumų skirtumą $O(n^2)$ ir $O(n log n)$.
 
 Praktinėje dalyje sukurta skaitmeninio ekvalaizerio sistema parodė, kad galima selektyviai stiprinti pasirinktus dažnius audio signale. Pritaikius stiprinimo funkciją C natos dažniui, buvo pastebėtas šio komponento išryškinimas signale, kas patvirtina filtravimo metodo veikimą.
-
+ 
 #pagebreak(weak: true)
 #include "chapters/conclusions.typ"
 #pagebreak(weak: true)
