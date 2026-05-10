@@ -49,7 +49,7 @@ Standartinis diskrečios furje transformacijos algoritmas (_angl. discrete fouri
 
 #figure(
   image("assets/diagrams/speed.png", width: 320pt),
-  caption: [Klasikinio DFT ir Cooley-Tukey FFT algoritmų veikimo trukmės priklausomybė nuo signalo ilgio. Naudojama logaritminė skalė.]
+  caption: [Klasikinio DFT ir Cooley-Tukey FFT algoritmų veikimo trukmės priklausomybė nuo signalo ilgio. Naudojama logaritminė skalė. Algoritmai leidžiami ant vis ilgėjančių to pačio signalo atkarpų. ]
 ) <speed>
 
 @speed matome, kad Cooley-Tukey FFT algoritmas yra daug efektyvesnis negu klasikinis DFT algoritmas, tokio rezultato ir galėjome tikėtis. Logaritminė skalė naudojame todėl, kad be jos FFT algoritmas yra tiek kartų greitesnis, kad atrodo, kaip horizontali linija lyginant su kitu algoritmu.
