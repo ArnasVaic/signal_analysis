@@ -64,10 +64,10 @@ Standartinis diskrečios furje transformacijos algoritmas (_angl. discrete fouri
       image("assets/diagrams/ceg-sound.png"),
       image("assets/diagrams/ceg-spectral.png"),
   ),
-  caption: [Kairėje -- FFT algoritmas pritaikytas audio signalui kuriame iš eilės gitara sugrojamos natos C, E, G. Dešinėje -- šio signalo spektrograma.]
+  caption: [Kairėje -- FFT algoritmas pritaikytas audio signalui kuriame iš eilės gitara sugrojamos natos C, E, G. Dešinėje -- šio signalo dažnių spektras.]
 ) <ceg-sig-and-spec>
 
-Norint pademonstruoti skaitmeninio ekvalaizerio veikimą naudosime @ceg-sig-and-spec pavaizduotą audio signalą. Kadangi trijų natų dažniai yra skirtingi ir nėra vienas kito kartotiniai, taikantis į specifinį dažnių intervalą aplink vieną iš natų turėtume gauti garso signalą, kuriame būtų pagarsinta tik pasirinkta nata. Galima pastebėti, kad spektrogramoje yra ir kitų dažnių, kurie sutampa su grojamų natų oktavomis, taip yra todėl, kad instrumentų skleidžiamos bangos nėra idealios ir turi harmoningų dažnių.
+Norint pademonstruoti skaitmeninio ekvalaizerio veikimą naudosime @ceg-sig-and-spec pavaizduotą audio signalą. Kadangi trijų natų dažniai yra skirtingi ir nėra vienas kito kartotiniai, taikantis į specifinį dažnių intervalą aplink vieną iš natų turėtume gauti garso signalą, kuriame būtų pagarsinta tik pasirinkta nata. Galima pastebėti, kad dažnių spektre yra ir kitų dažnių, kurie sutampa su grojamų natų oktavomis, taip yra todėl, kad instrumentų skleidžiamos bangos nėra idealios ir turi harmoningų dažnių.
 
 #figure(
   grid(
@@ -106,7 +106,7 @@ Skaitmeninį ekvalaizerį galime panaudoti daugybe įvairių būdų -- vienas i�
     image("assets/diagrams/melody-original-spectrum.png")
   )
   ,
-  caption: [Orginalus melodijos garso įrašas be pridėto triukšmo bei jo spektras dešinėje.]
+  caption: [Orginalus melodijos garso įrašas be pridėto triukšmo bei jo dažnių spektras dešinėje.]
 ) <orig-melody>
 
 Garso įrašą užteršime sintetiniu garso signalu, kuris egzistuoja trijuose specifiniuose dažniuose, kurie randasi už @orig-melody matomų melodiją sudarančių dažnių.
@@ -118,7 +118,7 @@ Garso įrašą užteršime sintetiniu garso signalu, kuris egzistuoja trijuose s
     image("assets/diagrams/noise-spectrum.png")
   )
   ,
-  caption: [Sintentinis triukšmas, kurį sudaro trys dažniai: 1000Hz, 2500Hz ir 5000Hz ir jo spektras dešinėje.]
+  caption: [Sintentinis triukšmas, kurį sudaro trys dažniai: 1000Hz, 2500Hz ir 5000Hz ir jo dažnių spektras dešinėje.]
 ) <noise>
 
 Sintetinį audio signalą @noise sudėsime su melodijos audio signalu ir gausime užterštą signalą:
@@ -130,7 +130,7 @@ Sintetinį audio signalą @noise sudėsime su melodijos audio signalu ir gausime
     image("assets/diagrams/melody-noisy-spectrum.png")
   )
   ,
-  caption: [Triukšmu užterštas melodijos signalas ir jo spektras]
+  caption: [Triukšmu užterštas melodijos signalas ir jo dažnių spektras]
 ) <noisy_melody>
 
 @noisy_melody pavaizduotas užterštas audio signalas. Galime įsivaizduoti, kad taikydami šį metodą, mūsų įvesties signalas atrodytų būtent taip, o užduotis būtų surasti orginalų signalą iš @orig-melody Kaip matome iš užteršto signalo spektro, melodijos ir triukšmo dažniai nepersidengia, todėl galime sukonstruoti garso stiprinimo funkciją, kuri taikosi į šiuo dažnius ir juos pašalina. Tokia funkcija galėtų atrodytų štai taip:
@@ -158,7 +158,7 @@ Pritaike @noise-cancel_gain pavaizduotą garso stiprinimo funkciją užterštam 
     image("assets/diagrams/recovered-spectrum.png")
   )
   ,
-  caption: [Atkurtas garso signalas ir jo spektras]
+  caption: [Atkurtas garso signalas ir jo dažnių spektras]
 ) <recovered_melody>
 
 Kaip matome @recovered_melody, atkurto garso signalo spektre nebėra triukšmo dažnių, o garso signalas taip pat vizualiai panašus į prieš tai buvusį, tačiau geresniam matomumui parodysime skirtumą tiesiogiai:
@@ -214,7 +214,25 @@ kur $f_c = 120"Hz"$ -- stiprinimo centro dažnis, $w = 120$ -- stiprinimo funkci
 
 Kaip matome @bass_boost, pritaikius žemų dažnių stiprinimą, signalo amplitudė padidėja, nes žemųjų dažnių komponentai įgauna didesnę energiją. Klausant apdoroto įrašo per garso sistemą, kuri gali perteikti žemus dažnius, galima aiškiai girdėti sustiprintą mušamųjų bei boso garsą.
 
+== _Dial-up_ modemų protokolo spektrograma
 
+Spektrograma yra vienas iš Furje transformacijos taikymų, leidžiantis analizuoti signalo dažnius laiko atžvilgiu. Ji gaunama taikant trumpalaikę Furje transformaciją (_angl. short-time Fourier transform, STFT_), kai signalas padalinamas į persidengiančius laiko langus ir kiekvienam langui apskaičiuojamas atskiras dažnių spektras. Tokiu būdu gaunamas dvimatis vaizdas, kuriame horizontalioje ašyje vaizduojamas laikas, vertikalioje -- dažnis, o spalvos intensyvumas atitinka signalo amplitudę. Norint pademonstruoti spektrogramos pritaikymą realaus pasaulio signalams, analizuosime _dial-up_ (telefono linijomis veikiančių modemų) signalo pavyzdį. Analizei naudojamas lango dydis 4096 ir žingsnis tarp langų 1024.
+
+#figure(
+  grid(
+    columns: 2,
+    image("assets/diagrams/spectrogram-time.png"),
+    image("assets/diagrams/spectrogram-log.png")
+  ),
+  caption: [
+    Kairėje -- _dial-up_ audio signalas signal. 
+    Dešinėje -- to paties signalo spektrogramos iškarpa logaritminėje skalėje, kurioje matomos protokolo fazės.
+  ]
+) <dialup-spec>
+
+Kaip matyti @dialup-spec, spektrogramoje aiškiai išskiriamos kelios skirtingos signalo fazės. Paralelios linijos spektrogramos pradžioje skambučio signalą pradžią, tai yra pirmas portokolo žingsnis, tuomet matome išdėstytus taškus (2-4s), kurios savyje laiko užkoduotą informaciją apie telefono numerį, kuriam yra skambinama. Protokolas turi ir tolimesnių fazių, tačiau šioje ataskaitoje į tai nesigilinsime, o apie jas detaliau sužinoti galima @windytan_dialup. Šis pavyzdys yra demonstracija, kad spektrogramą galima naudoti kaip garso įrašo nuotrauką, kuri suteikia naudingos informacijos apie tai, kas vyksta signale, šis metodas turi begale taikymų įvairiose mokslo srityse. Verta paminėti, kadl ogaritminė amplitudės skalė yra ypač svarbi (y ašis yra matuojama decibelais, o ne abstrakčiais normalizuotos aplitudės vienetais), nes leidžia vizualizuoti tiek stiprius, tiek silpnesnius dažninius komponentus viename paveiksle. Be jos silpnesni signalai būtų sunkiai pastebimi dėl didelio rodomų dažnių intervalo.
+
+#pagebreak()
 
 = Išvados
 
@@ -222,7 +240,17 @@ Kaip matome @bass_boost, pritaikius žemų dažnių stiprinimą, signalo amplitu
 
 Greitaveikos analizė parodė, kad FFT algoritmas yra ženkliai efektyvesnis už klasikinę diskrečią Furje transformaciją (DFT), ypač didėjant signalo ilgiui. Tai patvirtina teorinį sudėtingumų skirtumą $O(n^2)$ ir $O(n log n)$.
 
-Praktinėje dalyje sukurta skaitmeninio ekvalaizerio sistema parodė, kad galima selektyviai stiprinti pasirinktus dažnius audio signale. Pritaikius stiprinimo funkciją C natos dažniui, buvo pastebėtas šio komponento išryškinimas signale, kas patvirtina filtravimo metodo veikimą.
+Praktinėje dalyje sukurta skaitmeninio ekvalaizerio sistema parodė, kad galima selektyviai stiprinti arba slopinti pasirinktus dažnius audio signale. Pritaikius stiprinimo funkciją C natos dažniui, buvo pastebėtas šio komponento išryškinimas signale, kas patvirtina filtravimo metodo veikimą. Taip pat parodyta, kad keičiant stiprinimo funkcijos parametrus galima reguliuoti paveikiamų dažnių plotį ir tokiu būdu valdyti, kiek aplinkinių dažnių bus sustiprinta.
+
+Triukšmo šalinimo eksperimento metu parodyta, kad FFT pagrindu veikiantis ekvalaizeris gali būti naudojamas siaurajuosčio triukšmo pašalinimui. Kadangi sintetinio triukšmo dažniai nesutapo su pagrindiniais melodijos komponentais, pritaikius atitinkamą slopinimo funkciją pavyko beveik pilnai pašalinti pašalinius dažnius ir atkurti signalą, kuris vizualiai bei akustiškai buvo labai panašus į originalų įrašą.
+
+Telefono efekto pavyzdys parodė, kad ekvalaizeris gali būti naudojamas ne tik signalo atkūrimui, bet ir garso efektų kūrimui. Pašalinus labai žemus bei aukštus dažnius buvo gautas garsas, primenantis senų telefono linijų perduodamą signalą.
+
+Bass boost eksperimento metu parodyta, kad stiprinant žemųjų dažnių sritį galima išryškinti mušamųjų bei bosinių instrumentų komponentus. Pritaikius žemų dažnių stiprinimą padidėjo signalo amplitudė bei subjektyviai sustiprėjo garso „gilumas“, kas atitinka praktikoje naudojamų garso sistemų veikimo principus.
+
+Darbo pabaigoje FFT algoritmas buvo pritaikytas spektrogramos sudarymui naudojant trumpalaikę Furje transformaciją (STFT). Analizuojant dial-up modemų signalą parodyta, kad spektrograma leidžia stebėti, kaip signalo dažninė sudėtis kinta laike. Gautoje spektrogramoje buvo galima atskirti skirtingas protokolo fazes bei charakteringus siaurajuosčius dažninius komponentus. Taip parodyta, kad Furje transformacijos metodai gali būti naudojami ne tik garso filtravimui, bet ir sudėtingų realaus pasaulio signalų analizei bei vizualizacijai.
+
+Apibendrinant galima teigti, kad Furje transformacija yra vienas svarbiausių skaitmeninio signalų apdorojimo metodų, leidžiantis efektyviai analizuoti, modifikuoti ir interpretuoti įvairius audio signalus tiek teoriniuose, tiek praktiniuose taikymuose.
  
 #pagebreak(weak: true)
 #include "chapters/conclusions.typ"
